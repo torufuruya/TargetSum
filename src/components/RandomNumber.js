@@ -3,12 +3,12 @@ import {Text, StyleSheet, TouchableOpacity} from 'react-native';
 
 class RandomNumber extends React.Component {
   handlePress = () => {
-    console.log(this.props.number);
+    this.props.onPress(this.props.id);
   };
   render() {
     return (
       <TouchableOpacity onPress={this.handlePress}>
-        <Text style={[styles.random, this.props.isSelected && styles.selected]}>
+        <Text style={[styles.random, this.props.isDisabled && styles.disabled]}>
           {this.props.number}
         </Text>
       </TouchableOpacity>
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 
-  selected: {
+  disabled: {
     opacity: 0.3,
   },
 });
