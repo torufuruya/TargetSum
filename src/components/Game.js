@@ -1,56 +1,69 @@
- import React from 'react';
- import { View, Text, StyleSheet } from 'react-native';
+import React from 'react';
+import {View, Text, StyleSheet} from 'react-native';
+import RandomNumber from './RandomNumber';
 
- class Game extends React.Component {
-   randomNumbers = Array
-     .from({ length: this.props.randomNumberCount })
-     .map(() => 1 + Math.floor(10 * Math.random()))
-   target = this.randomNumbers
-     .slice(0, this.props.randomNumberCount - 2)
-     .reduce((acc, curr) => acc + curr, 0)
-   // TODO: Shuffle the random numbers
-   render() {
-     return (
-       <View style={styles.container}>
-         <Text style={styles.target}>{this.target}</Text>
-         <View style={styles.randomContainer}>
-           {this.randomNumbers.map((randomNumber, index) =>
-             <Text style={styles.random} key={index}>{randomNumber}</Text>
-           )}
-         </View>
-       </View>
-     );
-   };
- };
 
- const styles = StyleSheet.create({
-   container: {
-     backgroundColor: '#ddd',
-     flex: 1,
-   },
+class Game extends React.Component {
+  state = {
+    selectedNumbers: [0, 4],
+  };
+  randomNumbers = Array
+    .from({ length: this.props.randomNumberCount })
+    .map(() => 1 + Math.floor(10 * Math.random()))
+  target = this.randomNumbers
+    .slice(0, this.props.randomNumberCount - 2)
+    .reduce((acc, curr) => acc + curr, 0)
+  // TODO: Shuffle the random numbers
 
-   target: {
-     fontSize: 50,
-     backgroundColor: '#bbb',
-     margin: 50,
-     textAlign: 'center',
-   },
+  isNumberSelected = (numberIndex) => {
+    return this .state.selectedNumbers.indexOf(numberIndex) >= 0;
+  };
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.target}>{this.target}</Text>
+        <View style={styles.randomContainer}>
+          {this.randomNumbers.map((randomNumber, index) =>
+            <RandomNumber
+              key={index}
+              number={randomNumber}
+              isSelected={this.isNumberSelected(index)}
+            />
+          )}
+        </View>
+      </View>
+    );
+  };
+};
 
-   randomContainer: {
-     flex: 1,
-     flexDirection: 'row',
-     flexWrap: 'wrap',
-     justifyContent: 'space-around',
-   },
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#ddd',
+    flex: 1,
+  },
 
-   random: {
-     backgroundColor: '#999',
-     width: 100,
-     marginHorizontal: 15,
-     marginVertical: 25,
-     fontSize: 35,
-     textAlign: 'center',
-   },
- });
+  target: {
+    fontSize: 50,
+    backgroundColor: '#bbb',
+    margin: 50,
+    textAlign: 'center',
+  },
 
- export default Game;
+  randomContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+  },
+
+  random: {
+    backgroundColor: '#999',
+    width: 100,
+    marginHorizontal: 15,
+    marginVertical: 25,
+    fontSize: 35,
+    textAlign: 'center',
+  },
+});
+
+export default Game;
