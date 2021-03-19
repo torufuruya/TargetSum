@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, Button, StyleSheet} from 'react-native';
 
 import RandomNumber from './RandomNumber';
 import shuffle from 'lodash.shuffle';
@@ -88,6 +88,9 @@ class Game extends React.Component {
             />
           )}
         </View>
+        {this.gameStatus !== 'PLAYING' && (
+          <Button title="Play Again" onPress={this.props.onPlayAgain} />
+        )}
         <Text>{this.state.remainingSeconds}</Text>
       </View>
     );
