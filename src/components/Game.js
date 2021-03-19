@@ -32,7 +32,7 @@ class Game extends React.Component {
       });
     }, 1000);
   }
-  componentWillUpdate(nextProps, nextState) {
+  UNSAFE_componentWillUpdate(nextProps, nextState) {
     if (
       nextState.selectedIds !== this.state.selectedIds ||
       nextState.remainingSeconds === 0
